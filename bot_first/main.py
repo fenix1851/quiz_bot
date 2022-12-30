@@ -6,12 +6,15 @@ from aiogram import Bot, Dispatcher, executor, types
 # Add states
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
-from aiogram.dispatcher.filters.state import State, StatesGroup
 from keyboards.inline_buttoms import inline_kb_login, inline_kb_admin
 from dotenv import load_dotenv
 from openpyxl import Workbook
 import qrcode
 import random
+from states.main import Main
+from states.form import Form
+from states.admin import Admin
+from states.client import Client
 
 load_dotenv()
 
@@ -45,36 +48,6 @@ async def connect():
 # Configure bot
 
 storage = MemoryStorage()
-
-class Main(StatesGroup):
-    start = State()
-    login = State()
-
-class Admin(StatesGroup):
-    start = State()
-    form = State()
-    forms_all = State()
-    new_form = State()
-    form_info = State()
-    upload_photo = State()
-    admins = State()
-    add_admin = State()
-    delete_admin = State()
-    promo = State()
-    promo_choose = State()
-    promo_delete = State()
-
-class Client(StatesGroup):
-    start = State()
-    form = State()
-    form_info = State()
-
-class Form(StatesGroup):
-    start = State()
-    form_info = State()
-    form_end = State()
-    form_input = State()
-    
 
 API_TOKEN = os.environ.get("API_TOKEN")
 

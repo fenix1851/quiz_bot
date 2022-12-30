@@ -8,3 +8,23 @@ services:
       - .env
     ports:
       - "5432:5432"
+    # Create script to create database
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    networks:
+      - bot
+  bot:
+    build: .
+    restart: always
+    env_file:
+      - .env
+    networks:
+      - bot
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+
+networks:
+  bot:
+    driver: bridge
